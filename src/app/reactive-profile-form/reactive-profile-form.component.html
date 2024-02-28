@@ -1,0 +1,112 @@
+<form 
+    class="profile-form"
+    [formGroup]="profileForm" 
+    (submit)="onSubmit()">
+
+    <h2>{{ stepTitle() }}</h2>
+    <div [hidden]="step !== 1" formGroupName="name">
+        <div>
+            <label for="fullname">Fullname</label>
+            <input
+                type="text"
+                id="fullname" 
+                formControlName="fullname"
+                placeholder="Enter your fullname"
+            />
+            <div *ngIf="
+                name.controls.fullname.invalid&&
+                name.controls.fullname.dirty
+                "
+                class="error"
+            >
+                <p *ngIf="name.controls.fullname.errors?.['required']">
+                    Fullname is required
+                </p>
+                <p *ngIf="name.controls.fullname.errors?.['minlength']">
+                    Fullname must be at least 5 characters
+                </p>
+            </div>
+        </div>
+
+        <div>
+            <label for="username">Username</label>
+            <input
+                type="text"
+                id="username" 
+                formControlName="username"
+                placeholder="Enter your username"
+            />
+            <p *ngIf="
+                name.controls.username.errors?.['required'] &&
+                name.controls.username.dirty
+                "
+                class="error"
+            >
+                Username is required
+            </p>
+        </div>
+    </div>
+
+    <div *ngIf="step == 2">
+        <label for="birth">Data of Birth</label>
+        <input
+            type="date"
+            id="birth" 
+            formControlName="birth"
+            placeholder="Date of birth"
+        />
+        <div *ngIf="
+            profileForm.controls.birth.invalid &&
+            profileForm.controls.birth.dirty
+            "
+            class="error"
+        >
+            <p *ngIf="profileForm.controls.birth.errors?.['required']">
+                Birth is required
+            </p>
+            <p *ngIf="profileForm.controls.birth.errors?.['notOfAge']">
+                You should be at least {{profileForm.controls.birth.errors?.["minAge"]}}
+            </p>
+        </div>
+    </div>
+
+    <!-- <div>
+        <label for="password">Password</label>
+        <input 
+            type="password" 
+            id="password"
+            formControlName="password"
+            placeholder="******"
+        />
+    </div>
+
+    <div>
+        <label for="confirmPassword">Confirm Password</label>
+        <input 
+            type="password" 
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            placeholder="******"
+            [ngClass]="{
+                'input-error': 
+                    profileForm.errors?.['passwordNotSame'] && 
+                    profileForm.controls['confirmPassword'].dirty
+                }"
+        />
+        <p *ngIf="
+            profileForm.errors?.['passwordNotSame'] &&
+            profileForm.controls['confirmPassword'].dirty
+            "
+            class="error"
+        >
+            Password confirmation does not match.
+        </p>
+    </div> -->
+
+    <div>
+        <button type="button" [disabled]="step === 1" (click)="previousStep()">Prev</button>
+        <button type="button" [disabled]="!stepIsValid()" (click)="nextStep()">Next</button>
+        <button *ngIf="step == 2" [disabled]="profileForm.invalid">Done</button>
+    </div>
+    {{profileForm.invalid}}
+</form>

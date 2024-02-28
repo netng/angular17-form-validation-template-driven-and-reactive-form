@@ -1,0 +1,69 @@
+.profile-form {
+    max-width: 400px;
+    box-shadow: 0 4px 4px rgb(179, 184, 189);
+    padding: 50px 20px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.profile-form h2 {
+    font-family: monospace;
+    font-size: 24px;
+    text-align: center;
+}
+
+.profile-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-form input {
+    border: 1px solid rgb(179, 184, 189);
+    height: 50px;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 5px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.profile-form input:focus {
+    outline: none;
+}
+
+.profile-form button {
+    background-color: rgb(0, 119, 255);
+    padding: 15px 25px;
+    width: fit-content;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-left: auto;
+}
+
+.profile-form .ng-invalid:not(form).ng-dirty:not([formgroupname]) {
+    border: 2px solid rgb(235, 104, 104);
+}
+
+.profile-form .input-error {
+    border: 2px solid rgb(235, 104, 104);
+}
+
+/* .ng-invalid button {
+    background-color: gainsboro;
+} */
+.profile-form button[disabled] {
+    background-color: gainsboro;
+  }
+  
+.error {
+    color: rgb(235, 104, 104);
+}
+
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: right;
+}

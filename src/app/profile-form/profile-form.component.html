@@ -1,0 +1,98 @@
+<div class="profile-form">
+    <h2>{{ stepTitle() }}</h2>
+    <form 
+        #profileForm="ngForm"
+        name="profile-form"
+        (ngSubmit)="onSubmit(profileForm)"
+        appConfirmPassword
+    >
+        <div [hidden]="step !== 1">
+            <div>
+                <label for="fullname">Fullnama</label>
+                <input
+                    type="text" 
+                    id="fullname"
+                    [(ngModel)]="model.fullname"
+                    required
+                    minlength="5"
+                    name = "fullname"
+                    #fullname="ngModel"
+                    placeholder="Enter your fullname"
+                />
+                <div *ngIf="fullname.invalid && fullname.dirty" class="error">
+                    <p *ngIf="fullname.errors?.['required']">Fullname is required.</p>
+                    <p *ngIf="fullname.errors?.['minlength']">Fullname must be at least 5 characters long.</p>
+                </div>
+            </div>
+
+            <div>
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    ngModel
+                    required
+                    name="username"
+                    placeholder="Enter your username"
+                />
+            </div>
+        </div>
+        
+
+        <div [hidden]="step !== 2">
+            <label for="birth">Date of Birth</label>
+            <input
+                type="date"
+                id="birth" 
+                ngModel
+                required
+                appNotOfAge
+                name="birth"
+                #birth="ngModel"
+            />
+            <p *ngIf="birth.errors?.['notOfAge'] && birth.dirty" class="error">
+                You are not of age. You must be at least {{birth.errors?.['minAge']}} years old.
+            </p>
+        </div>
+
+        <!-- <div>
+            <label for="password">Password</label>
+            <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="*****"
+                required
+                ngModel
+                #password="ngModel"
+            />
+        </div>
+
+        <div>
+            <label for="passwordConfirmation">Password Confirmation</label>
+            <input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="*****"
+                required
+                ngModel
+                #confirmPassword="ngModel"
+                [ngClass]="{'input-error': profileForm.form.errors?.['passwordNotSame'] && confirmPassword.dirty }"
+            />
+            <p 
+                *ngIf="profileForm.form.errors?.['passwordNotSame'] && confirmPassword.dirty"
+                class="error"
+            >
+                Password does not match.
+            </p>
+        </div> -->
+
+        <div class="buttons">
+            <button type="button" [disabled]="step === 1" (click)="previousStep()">Prev</button>
+            <button type="button" [disabled]="!stepIsValid(profileForm)" (click)="nextStep()">Next</button>
+            <button *ngIf="step === 2" [disabled]="!profileForm.form.valid">Done</button>
+        </div>
+    </form>
+    <p>{{fullname.dirty}}</p>
+</div>
